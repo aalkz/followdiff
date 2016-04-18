@@ -108,7 +108,7 @@ Instagram.config = {
    function generateFollowersUrl(userId, followersNextCursor){
    	var config = Instagram.config;
     var url;
-    url = config.apiHost + "/v1/users/" + userId + "/followed-by?callback=?&amp;client_id=" + config.clientID + "&amp;cursor=" + followersNextCursor;
+    url = config.apiHost + "/v1/users/self/followed-by?callback=?&amp;client_id=" + config.clientID + "&amp;cursor=" + followersNextCursor;
     console.log(userId);
    	console.log(url);
 
@@ -118,7 +118,7 @@ Instagram.config = {
    function generateFollowingUrl(userId, followingNextCursor){
     var config = Instagram.config;
     var url;
-    url = config.apiHost + "/v1/users/" + userId + "/follows?callback=?&amp;client_id=" + config.clientID + "&amp;cursor=" + followingNextCursor;
+    url = config.apiHost + "/v1/users/self/follows?callback=?&amp;client_id=" + config.clientID + "&amp;cursor=" + followingNextCursor;
     console.log(url);
 
     return url;
