@@ -98,7 +98,7 @@ Instagram.config = {
    function generateUserSearchUrl(userTerm){
    	var config = Instagram.config;
     var url;
-    url = config.apiHost + "/v1/users/search?q=" + userTerm + "&amp;count=" + config.userCount + "&amp;callback=?&amp;client_id=" + config.clientID;
+    url = config.apiHost + "/v1/users/self?callback=?&amp;client_id=" + config.clientID;
     console.log(userTerm);
    	console.log(url);
 
@@ -255,7 +255,7 @@ Instagram.config = {
    
   function getUserInfo(userTerm) {
     $.getJSON(generateUserSearchUrl(userTerm), function(users){
-      var userId = users.data[0].id;
+      var userId = users.id;
       Instagram.userId = userId;
       console.log("userId: " + userId);
       getFollowers(userId);
