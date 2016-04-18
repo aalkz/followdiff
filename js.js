@@ -23,6 +23,9 @@ Instagram.config = {
  Instagram.followingNextCursor = "";
  Instagram.finishedLoadingFollowers = false;
  Instagram.finishedLoadingFollowing = false;
+ Instagram.loggedIn = false;
+ Instagram.accessToken ="";
+ Instagram.redirectUri = "http://dnatracks.com/tmp/i/followdiff/followdiff.php";
 
  Instagram.followersList = [];
  Instagram.followingList = [];
@@ -116,6 +119,15 @@ Instagram.config = {
    }
 
    function generateFollowingUrl(userId, followingNextCursor){
+    var config = Instagram.config;
+    var url;
+    url = config.apiHost + "/v1/users/self/follows?callback=?&amp;client_id=" + config.clientID + "&amp;cursor=" + followingNextCursor;
+    console.log(url);
+
+    return url;
+   }
+
+   function generateAccessTokenInfo(){
     var config = Instagram.config;
     var url;
     url = config.apiHost + "/v1/users/self/follows?callback=?&amp;client_id=" + config.clientID + "&amp;cursor=" + followingNextCursor;
@@ -275,6 +287,12 @@ Instagram.config = {
     Instagram.followersList = [];
     Instagram.followingList = [];
     Instagram.differenceList = [];
+  }
+
+  function login(){
+    $.getJSON(generateAccessTokenInfo(), function(data){
+      var accessToken = data.access_token;
+    })
   }
 
 	Instagram.search = search;
