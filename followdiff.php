@@ -16,7 +16,7 @@ session_start();
 
 if(!isset($_SESSION['ACCESS_TOKEN'])) {
   if(!isset($_GET['code'])) {
-    $auth_url = $client->getAuthenticationUrl(AUTHORIZATION_ENDPOINT, REDIRECT_URI, array('scope' => 'relationships'));
+    $auth_url = $client->getAuthenticationUrl(AUTHORIZATION_ENDPOINT, REDIRECT_URI, array('scope' => 'basic+follower_list+relationships'));
     header('Location: ' . $auth_url);
   } else {
     $params = array('code' =>$_GET['code'], 'redirect_uri' => REDIRECT_URI);
@@ -43,7 +43,7 @@ if(!isset($_SESSION['ACCESS_TOKEN'])) {
 
 	<form id='search'>
           <div class="input-append">
-            <input class='search-tag' type='text' tabindex='1' value='' />
+            <input class='search-tag' type='text' tabindex='1' value='alkz' />
             <button class="btn" id="search-button" dir="ltr" tabindex="2" type="submit">
               <i class='icon-search'></i>
     		</button>

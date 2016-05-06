@@ -96,22 +96,25 @@ Instagram.config = {
  	}
 
    function generateUserSearchUrl(userTerm){
+    console.log("generateUserSearchUrl { ");
    	var config = Instagram.config;
     var url;
     url = config.apiHost + "/v1/users/self?callback=?&amp;client_id=" + config.clientID;
-    console.log(userTerm);
-   	console.log(url);
+    console.log("userTerm: " + userTerm);
+   	console.log("url: " + url);
 
+    console.log("} //generateUserSearchUrl ");
     return url;
    }
 
    function generateFollowersUrl(userId, followersNextCursor){
+    console.log("generateFollowersUrl { ");
    	var config = Instagram.config;
     var url;
     url = config.apiHost + "/v1/users/self/followed-by?callback=?&amp;client_id=" + config.clientID + "&amp;cursor=" + followersNextCursor;
     console.log(userId);
    	console.log(url);
-
+    console.log("} //generateFollowersUrl ");
     return url;
    }
 
@@ -125,7 +128,20 @@ Instagram.config = {
    }
 
    function getUserId(userTerm){
-   		$.getJSON(generateUserSearchUrl(userTerm), showUsers);
+    console.log("getUserId { ");
+   		$.ajax({
+        dataType: "json",
+        url: generateUserSearchUrl(userTerm),
+        success: showUsers,
+        error: function( jqxhr, textStatus, error ) {
+                var err = textStatus + ", " + error;
+                console.log( "Request Failed: " + err );
+              }
+      })
+      .done(function( users ) {
+        console.log( "JSON Data: " + users.data[0].id );
+      });
+    console.log("} //getUserId ");
    }
 
    function getFollowers(userId){
@@ -260,6 +276,13 @@ Instagram.config = {
       console.log("userId: " + userId);
       getFollowers(userId);
       getFollowing(userId);
+    })
+    .done(function( users ) {
+    console.log( "JSON Data: " + users);
+    })
+    .fail(function( jqxhr, textStatus, error ) {
+      var err = textStatus + ", " + error;
+      console.log( "Request Failed: " + err );
     });
   }
 
